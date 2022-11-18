@@ -3,7 +3,6 @@
 ## _The Official API Client for Blockchain-based Cloud Storage Services!_
 
 [![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
-
 ___
 ## Features
 ___
@@ -41,6 +40,63 @@ ___
 - "QueryChainToken": [enter the API key obtained supplied to you.],
 - "QueryChainRoles": [enter user groups here.  For example you could enter: "Testers"],
 ```
+
+___
+## How To's
+___
+```sh
+#1 After installing the EBBuildClient nuget package, add the following to your code:
+      using EBBuildClient.Core;
+#2 Defiine a data type that you want to store and or retrieve from the EBBuild cloud storage services.
+    public class SampleDataClass
+    {
+        public string ID {get;set;}
+        public string Name {get; set;}
+        public AddressClass Address1 {get; set;}
+    }
+    public class AddressClass
+    {
+        public string City {get; set;}
+        public string State {get; set;}
+        public string Zip {get; set;}
+    }
+    
+#3 Set the following required parameters.
+    Microsoft.Extensions.Configuration.IConfiguration configuration;
+    string email = "a valid email address";
+    string tenantID = "any unique string to identify your organization";
+    string ledgerPreface = "any string to identify your ledger.  i.e.: prod, qa, dev, crypto, etc.";
+    string ledgerName = "any name of your ledger where your data class will be stored.  i.e. payments";
+    
+#4 Create an instance of the EBBuildClient instance.
+    var EBBuildAPIServices = new EBBuildAPIService<SampleDataClass>(
+    configuration, 
+    email, 
+    tenantID, 
+    ledgerPreface,  
+    ledgerName);
+   
+#5 After creating an instance of the EBBuild Client in step #4 you MUST call either of the two methods:
+     NOTE: Call this is your want the most recent ledger record.
+   - SampleDataClass record = await EBBuildAPIServices.GetLedgerRecord(); 
+     NOTE: After calling this method, the internal context need to save updates is set and can be retrieved by calling:
+   - EBBuildAPIServices.GetLedgerListResponseRecord();
+    
+     NOTE: If you want to retrieve multiple ledger block records, you must (first) define filter conditions.
+   - List<string> ledgerFilterConditions = new List<string>() 
+     { {"FirstName:EQ:Tom:AND"},{"Address1.State:IN:[New York;Phoenix;London;Miami;Berlin "} };
+   
+   - List<SampleDataClass> records = await EBBuildAPIServices.GetLedgerRecords(ledgerFilterConditions); 
+     NOTE: After calling this method, the internal context need to save updates is set and can be retrieved by calling:
+   - EBBuildAPIServices.GetLedgerListResponseRecords();
+    
+#6. Once the internal context has been set, you can save updated blocks to the ledger by calling the following method:
+    - SampleDataClass dataContext = new SampleDataClass();
+    - EBBuildAPIServices.SaveDataToLedger(dataContext);
+```
+
+
+
 ___
 ## Company Contact Information
 ___
