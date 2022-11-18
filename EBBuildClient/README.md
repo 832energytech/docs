@@ -96,6 +96,27 @@ ___
 ```
 
 
+___
+## Adding Filter Conditions
+___
+| Operation | Description | Example | Notes |
+| ------ | ------ | ------ | ------ |
+|Regexp	|Regular expressions	| {LastName:REGEX:\\b[L]\\w+}
+|Or|	Logical OR	| {FirstName:EQ:Joe:OR},{LastName:EQ:Biden}| Filter conditions combine multiple filter conditions by adding an optional "AND" "OR" boolean operator to the end of each filter.
+|Gt, Gte|	Greater than or equal.|	{Age:Gte:25}
+|Le, Lte|	Less than or less than or equal. |	{Age:Lte:25}
+|Between|	Between two values.	| {Age:BETWEEN:[10;41]}
+|Inq, Nin| In or not inv an array of values.|	{Age:Inq:[New York; Phoenix; London; Miami; Berlin]}
+|Neq| Not equal.|	{LastName:Neq:”Miller”}
+|Like, Nlike|	Like or not like a value.|	{LastName:Like:”Miller”}
+|ILke, Nilike|	Case insensitive like and not like.| {LastName:ILike:”Miller”}
+
+
+
+
+
+	
+
 
 ___
 ## Company Contact Information
