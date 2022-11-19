@@ -6,7 +6,7 @@
 ___
 ## Features
 ___
-If your application requires cloud storage of unstructured JSON or key/value paired data, the EB Build client is an affordable and extremely fast alernative to any of the following solutions:
+If your application requires cloud storage of unstructured JSON or key/value paired data, the EB Build client is an affordable and extremely fast alternative to any of the following solutions:
 1. Couchbase
 2. Redis
 3. DynamoDB
