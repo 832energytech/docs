@@ -47,6 +47,7 @@ ___
 ```sh
 #1 After installing the EBBuildClient nuget package, add the following to your code:
       using EBBuildClient.Core;
+      
 #2 Defiine a data type that you want to store and or retrieve from the EBBuild cloud storage services.
     public class SampleDataClass
     {
@@ -62,37 +63,71 @@ ___
     }
     
 #3 Set the following required parameters.
-    Microsoft.Extensions.Configuration.IConfiguration configuration;
-    string email = "a valid email address";
-    string tenantID = "any unique string to identify your organization";
-    string ledgerPreface = "any string to identify your ledger.  i.e.: prod, qa, dev, crypto, etc.";
-    string ledgerName = "any name of your ledger where your data class will be stored.  i.e. payments";
+     Microsoft.Extensions.Configuration.IConfiguration configuration;
+     string email = "a valid email address";
+     string tenantID = "any unique string to identify your organization";
+     string ledgerPreface = "any string to identify your ledger.  i.e.: prod, qa, dev, crypto, etc.";
+     string ledgerName = "any name of your ledger where your data class will be stored.  i.e. payments";
     
 #4 Create an instance of the EBBuildClient instance.
-    var EBBuildAPIServices = new EBBuildAPIService<SampleDataClass>(
-    configuration, 
-    email, 
-    tenantID, 
-    ledgerPreface,  
-    ledgerName);
+     var EBBuildAPIServices = new EBBuildAPIService(
+     configuration, 
+     email, 
+     tenantID, 
+     ledgerPreface,  
+     ledgerName);
    
 #5 After creating an instance of the EBBuild Client in step #4 you MUST call either of the two methods:
-     NOTE: Call this is your want the most recent ledger record.
-   - SampleDataClass record = await EBBuildAPIServices.GetLedgerRecord(); 
+     NOTE: Blockchain ledgers can contain multiples data types.  
+     NOTE: By defailt all blocks for all datat types can be returned.  
+     NOTE: To filter by a specific data type you can specify the name of the blocks data type you want returned.
+     
+     string blockTypeName = "SampleDataClass";
+     
+     NOTE: This method is static.
+   - SampleDataClass record = await EBBuildAPIService.GetLedgerRecord<SampleDataClass>(
+      EBBuildAPIServices, 
+      blockTypeName); 
+     
      NOTE: After calling this method, the internal context need to save updates is set and can be retrieved by calling:
-   - EBBuildAPIServices.GetLedgerListResponseRecord();
+   - EBBuildAPIService.GetLedgerListResponseRecord();
     
      NOTE: If you want to retrieve multiple ledger block records, you must (first) define filter conditions.
+     NOTE: This method is static.
    - List<string> ledgerFilterConditions = new List<string>() 
-     { {"FirstName:EQ:Tom:AND"},{"Address1.State:IN:[New York;Phoenix;London;Miami;Berlin "} };
+     { {"FirstName:EQ:Tom:AND"},
+       {"Address1.State:IN:[New York;Phoenix;London;Miami;Berlin "} 
+     };
    
-   - List<SampleDataClass> records = await EBBuildAPIServices.GetLedgerRecords(ledgerFilterConditions); 
+    NOTE: Blockchain ledgers can contain multiples data types.  
+    NOTE: By defailt all blocks for all datat types can be returned.  
+    NOTE: To filter by a specific data type you can specify the name of the blocks data type you want returned.
+     
+    string blockTypeName = "SampleDataClass";
+   
+   - List<SampleDataClass> records = await EBBuildAPIService.GetLedgerRecords<SampleDataClass>(
+     ledgerFilterConditions, 
+     EBBuildAPIServices, 
+     blockTypeName); 
+     
      NOTE: After calling this method, the internal context need to save updates is set and can be retrieved by calling:
-   - EBBuildAPIServices.GetLedgerListResponseRecords();
+   - EBBuildAPIService.GetLedgerListResponseRecords();
     
 #6. Once the internal context has been set, you can save updated blocks to the ledger by calling the following method:
-    - SampleDataClass dataContext = new SampleDataClass();
-    - EBBuildAPIServices.SaveDataToLedger(dataContext);
+     SampleDataClass dataContext = new SampleDataClass();
+     NOTE: To enforce multi-factor authentication (MFA) you can set the enableMFA parameter.
+     NOTE: When suspicious access to the ledger is detected on the write an email will be issued is MFA is set to true.
+     
+     bool enableMFA = true;   
+     string blockTypeName = "SampleDataClass";
+     
+     NOTE: This method is static.
+     
+   - EBBuildAPIService.SaveDataToLedger(
+      dataContext,
+      EBBuildAPIServices,
+      enableMFS,
+      blockTypeName);
 ```
 
 
