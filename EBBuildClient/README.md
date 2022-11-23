@@ -62,6 +62,11 @@ ___
         public string Zip {get; set;}
     }
     
+    NOTE: If you require raw data, then use our internal RawDataType class type.
+    NOTE: The RawDataType class has a single property called "RawData" which will contain your unstructured json payload.
+    
+    RawDataType rawData = await EBBuildAPIService.GetLedgerRecord<RawDataType>(EBBuildAPIServices);
+    
 #3 Set the following required parameters.
      Microsoft.Extensions.Configuration.IConfiguration configuration;
      string email = "a valid email address";
