@@ -138,7 +138,7 @@ ___
 ##
 | Operation | Description | Example | Notes |
 | ------ | ------ | ------ | ------ |
-|Regexp	|Regular expressions	| {LastName:REGEX:\\b[L]\\w+} | ie: Match the lastname that begins with the letter "L"  See the "Regular Expression - Documentation (below)"
+|Regexp	|Regular expressions	| {LastName:REGEX:\\b[L]\\w+} | ie: Match the lastname that begins with the letter "L".  See the "Regular Expression - Documentation (below)"
 |Or|	Logical OR	| {FirstName:EQ:Joe:OR},{LastName:EQ:Biden}| Filter conditions combine multiple filter conditions by adding an optional "AND" "OR" boolean operator to the end of each filter.
 |Gt, Gte|	Greater than or equal.|	{Age:Gte:25}
 |Le, Lte|	Less than or less than or equal. |	{Age:Lte:25}
