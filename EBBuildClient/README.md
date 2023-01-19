@@ -5,17 +5,14 @@
 [![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
 ___
 ## Features
-##
 ___
 If your application requires cloud storage of unstructured JSON or key/value paired data, the EB Build client is an affordable and extremely fast alternative to any of the following solutions:
 1. Couchbase
 2. Redis
 3. DynamoDB
 4. MongoDB
-##
 ___
 ## Benefits
-##
 ___
 - ✨Extremely affordable fixed fee pricing!
 - ✨Extremely secure blockchain encryption!
@@ -25,7 +22,6 @@ ___
 ##
 ___
 ## Obtaining a Sandbox API Key
-##
 ___
 ##
 EBBuild cloud services can be accessed via our sandbox for a limited time.
@@ -37,11 +33,8 @@ ___
 ## Pre-Installation Steps:  
 ## #1. [Click Here to Create a Private Cluster](https://aws.amazon.com/marketplace/pp/prodview-7ulzw27yljmlu?sr=0-261&ref_=beagle&applicationId=AWSMPContessa)
 ## #2. [Click Here to Download the EBBuild Client via nuget](https://www.nuget.org/packages/EBBuildClient/)
-##
-##
 ___
 ## Post-Installation Steps:  
-##
 ___
 ```sh
 #1 After creating a private cluster you will receive an automated email with the following:
@@ -56,12 +49,9 @@ ___
 -     "QueryChainRoles": [enter user groups here.  For example you could enter: "Testers"],
    }
 ```
-##
 ___
 ## How To's
-##
 ___
-##
 ```sh
 #1 After installing the EBBuildClient nuget package, add the following to your code:
       using EBBuildClient.Core;
@@ -130,12 +120,9 @@ NOTE: If you do not specify a ledgername then the email address will automatical
       enableMFS,
       blockTypeName);
 ```
-##
 ___
 ## Adding Filter Conditions
-##
 ___
-##
 | Operation | Description | Example | Notes |
 | ------ | ------ | ------ | ------ |
 |Regexp	|Regular expressions	| {LastName:REGEX:\\b[L]\\w+}
@@ -151,9 +138,7 @@ ___
 
 ___
 ## Company Contact Information
-##
 ___
-##
 | Contact | Email |
 | ------ | ------ |
 | Technical Support | support@everythingblockchain.io |
@@ -162,12 +147,9 @@ ___
 | Marketing | marketing@everythingblockchain.io |
 | Investors | invest@everythingblockchain.io |
 | Press | press@everythingblockchain.io |
-##
 ___
 ## License
-##
 ___
-##
 MIT- The API is and will always remain free!  The data storage is based on a fixed fee.  Contact EverythingBlockchain, Inc for details.
 
 
