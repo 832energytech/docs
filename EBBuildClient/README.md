@@ -75,15 +75,30 @@ ___
 
 #4 Initialize the core EBBuild services in the following manner:
     #4.1 EBBuildApiFactory  : This class is the core object used to manage connection objects.
-         EBBuildApiFactory _ebBuildDBApiServiceFactory = new EBBuildApiFactory(_maxConnections, Program._configuation, _ebbuildDBUserEmail, _ebbuildDBTenantId, _ebbuildDBLedgerPreface, _ebbuildDBLedgerName, _ebbuildDBApiBaseUri, _maxRecordsReturned, _ebbuildDBUseWebSockets);
+         EBBuildApiFactory _ebBuildDBApiServiceFactory = new EBBuildApiFactory(
+             _maxConnections, 
+             Program._configuation, 
+             _ebbuildDBUserEmail, 
+             _ebbuildDBTenantId, 
+             _ebbuildDBLedgerPreface, 
+             _ebbuildDBLedgerName, 
+             _ebbuildDBApiBaseUri, 
+             _maxRecordsReturned, 
+             _ebbuildDBUseWebSockets);
     
     #4.2 IEBBuildAPIService : This interface is used for all connection object created by the EBBuildApiFactory.
          IEBBuildAPIService _client1 = _ebBuildDBApiServiceFactory.GetApiClient();
          
     #4.3 EBBuildAPIService  : This is a static class used to calling all CRUD methods.
-         List<string> recordList = EBBuildAPIService.GetLedgerRecords<string>(_filters, _client1).Result;
-         List<string> recordList = EBBuildAPIService.GetLedgerRecords<string>(_filters, _ebBuildDBApiServiceFactory.GetApiClient()).Result;
-         List<SampleDataClass> recordList = EBBuildAPIService.GetLedgerRecords<SampleDataClass>(_filters, _ebBuildDBApiServiceFactory.GetApiClient()).Result;
+         List<string> recordList = EBBuildAPIService.GetLedgerRecords<string>(
+             _filters, 
+             _client1).Result;
+         List<string> recordList = EBBuildAPIService.GetLedgerRecords<string>(
+             _filters, 
+             _ebBuildDBApiServiceFactory.GetApiClient()).Result;
+         List<SampleDataClass> recordList = EBBuildAPIService.GetLedgerRecords<SampleDataClass>(
+             _filters, 
+             _ebBuildDBApiServiceFactory.GetApiClient()).Result;
          
 #5 The EBBuild cloud servics support query filters used to filter data objects.
 #6 To simplify creating filter conditions, the EBBuild client provides a filter builder.
