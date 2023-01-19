@@ -146,6 +146,7 @@ ___
 |Le, Lte|	Less than or less than or equal. |	{Age:Lte:25}
 |Between|	Between two values.	| {Age:BETWEEN:[10;41]}
 |Inq, Nin| In or not inv an array of values.|	{City:Inq:[New York; Phoenix; London; Miami; Berlin]}
+|Eq| Equal.|	{LastName:Eq:”Miller”}
 |Neq| Not equal.|	{LastName:Neq:”Miller”}
 |Like, NLike|	Like or not like a value.|	{LastName:Like:”Miller”}
 |ILike, NiLike|	Case insensitive like and not like.| {LastName:ILike:”Miller”}
