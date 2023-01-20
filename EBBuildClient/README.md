@@ -94,9 +94,15 @@ ___
          IEBBuildAPIService _client1 = _ebBuildDBApiServiceFactory.GetApiClient();
          
     #4.3 EBBuildAPIService  : This is a static class used to calling all CRUD methods.
-         List<string> recordList = EBBuildAPIService.GetLedgerRecords<string>(_filters, _client1).Result;
-         List<string> recordList = EBBuildAPIService.GetLedgerRecords<string>(_filters, _ebBuildDBApiServiceFactory.GetApiClient()).Result;
-         List<SampleDataClass> recordList = EBBuildAPIService.GetLedgerRecords<SampleDataClass>(_filters, _ebBuildDBApiServiceFactory.GetApiClient()).Result;
+         List<string> recordList = EBBuildAPIService.GetLedgerRecords<string>(
+             _filters, 
+             _client1).Result;
+         List<string> recordList = EBBuildAPIService.GetLedgerRecords<string>(
+             _filters, 
+             _ebBuildDBApiServiceFactory.GetApiClient()).Result;
+         List<SampleDataClass> recordList = EBBuildAPIService.GetLedgerRecords<SampleDataClass>(
+             _filters, 
+             _ebBuildDBApiServiceFactory.GetApiClient()).Result;
          
 #5 The EBBuild cloud servics support query filters used to filter data objects.
 #6 To simplify creating filter conditions, the EBBuild client provides a filter builder.
