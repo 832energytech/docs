@@ -50,10 +50,14 @@ ___
 #3 Add an appsettings.json file to project, if you don't already have an appsettings.json file added.
 
 #4 Add the following values to the root of your appsettings.json file added to your project:
--  {
-      "EbbuildApiBaseUri": "https://api.ebiblockchain.io/",
--     "QueryChainToken": [enter the API key obtained supplied to you.],
--     "QueryChainRoles": [enter user groups here.  For example you could enter: "Testers"],
+-   {
+      "EbbuildApiBaseUri": [enter the url provided by EBI, INc],
+-     "EbbuildApiToken": [enter the API key obtained supplied to you.],
+-     "EbbuildApiRoles": [enter user groups here.  For example you could enter: "Testers"],
+      "EbbuildRegistrationHost": [enter the name of company or entity: "Company ABC, Inc"],
+      "EbbuildConfigValuesPath": "[if your configuration values are stored with a prefix like: "Settings:EbbuildApiToken", 
+                                   then set this to "Settings" so that the API Client can successfully find your values in 
+                                   your appsettings.json file].  Otherwise, leave this empty with double quotes."
    }
 ```
 ##
