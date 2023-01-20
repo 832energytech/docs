@@ -119,7 +119,8 @@ ___
         BooleanOperation.AND);
     
  NOTE: If you require raw data, then use our internal RawDataType class type.
-    NOTE: The RawDataType class has a single property called "RawData" or simply use the "String" data type which will contain your unstructured json payload.
+    NOTE: The RawDataType class has a single property called "RawData" or simply use the "String" data 
+    type which will contain your unstructured json payload.
     
     RawDataType rawData = await EBBuildAPIService.GetLedgerRecord<RawDataType>(EBBuildAPIServices);
     string rawData = await EBBuildAPIService.GetLedgerRecord<string>(EBBuildAPIServices);
@@ -137,8 +138,9 @@ NOTE: If you do not specify a ledgername then the email address will automatical
       
 
 #7. To enforce multi-factor authentication (MFA) you can set the enableMFA parameter.
-     NOTE: When saving data to the ledger, if you set the MFA parameter to "true" and if suspicious read access to the ledger is detected that read access 
-     will be block temporarily until an email challenge is sent to you (the owner of the ledger to allow you an opportunity to block or allow access).
+     NOTE: When saving data to the ledger, if you set the MFA parameter to "true" and if suspicious read access to the 
+     ledger is detected that read access will be block temporarily until an email challenge is sent to you 
+     (the owner of the ledger to allow you an opportunity to block or allow access).
      
      bool enableMFA = true;   
      string blockTypeName = "SampleDataClass";
