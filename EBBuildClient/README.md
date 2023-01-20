@@ -35,6 +35,9 @@ ___
 ## Pre-Installation Steps:  
 ## #1. [Click Here to Create a Private Cluster](https://aws.amazon.com/marketplace/pp/prodview-7ulzw27yljmlu?sr=0-261&ref_=beagle&applicationId=AWSMPContessa)
 ## #2. [Click Here to Download the EBBuild Client via nuget](https://www.nuget.org/packages/EBBuildClient/)
+## #3. Add the following dependencies to your project:
+       3.1 Microsoft.AspNetCore.SignalR.Client version 7.0.2 (or higher)
+       3.2 Microsoft.AspNetCore.SignalR.Protocols.MessagePack version 7.0.2 (or higher)
 ___
 ## Post-Installation Steps:  
 ___
