@@ -79,7 +79,16 @@ ___
 
 #4 Initialize the core EBBuild services in the following manner:
     #4.1 EBBuildApiFactory  : This class is the core object used to manage connection objects.
-         EBBuildApiFactory _ebBuildDBApiServiceFactory = new EBBuildApiFactory(_maxConnections, Program._configuation, _ebbuildDBUserEmail, _ebbuildDBTenantId, _ebbuildDBLedgerPreface, _ebbuildDBLedgerName, _ebbuildDBApiBaseUri, _maxRecordsReturned, _ebbuildDBUseWebSockets);
+         EBBuildApiFactory _ebBuildDBApiServiceFactory = new EBBuildApiFactory(
+             _maxConnections, 
+             Program._configuation, 
+             _ebbuildDBUserEmail, 
+             _ebbuildDBTenantId, 
+             _ebbuildDBLedgerPreface, 
+             _ebbuildDBLedgerName, 
+             _ebbuildDBApiBaseUri, 
+             _maxRecordsReturned, 
+             _ebbuildDBUseWebSockets);
     
     #4.2 IEBBuildAPIService : This interface is used for all connection object created by the EBBuildApiFactory.
          IEBBuildAPIService _client1 = _ebBuildDBApiServiceFactory.GetApiClient();
@@ -91,8 +100,17 @@ ___
          
 #5 The EBBuild cloud servics support query filters used to filter data objects.
 #6 To simplify creating filter conditions, the EBBuild client provides a filter builder.
-    #6.1 List<string> _filters = EBIBuildAPIHelper.BuildFilter(_filters, "email", FilterOperation.EQ, "dummyuser15@gmail.com");
-    #6.2 List<string> _filters = EBIBuildAPIHelper.BuildFilter(_filters, "email", FilterOperation.EQ, "dummyuser15@gmail.com", BooleanOperation.AND);
+    #6.1 List<string> _filters = EBIBuildAPIHelper.BuildFilter(
+        _filters, 
+        "email", 
+        FilterOperation.EQ, 
+        "dummyuser15@gmail.com");
+    #6.2 List<string> _filters = EBIBuildAPIHelper.BuildFilter(
+        _filters, 
+        "email", 
+        FilterOperation.EQ, 
+        "dummyuser15@gmail.com", 
+        BooleanOperation.AND);
     
  NOTE: If you require raw data, then use our internal RawDataType class type.
     NOTE: The RawDataType class has a single property called "RawData" or simply use the "String" data type which will contain your unstructured json payload.
@@ -113,7 +131,8 @@ NOTE: If you do not specify a ledgername then the email address will automatical
       
 
 #7. To enforce multi-factor authentication (MFA) you can set the enableMFA parameter.
-     NOTE: When saving data to the ledger, if you set the MFA parameter to "true" and if suspicious read access to the ledger is detected that read access will be block temporarily until an email challenge is sent to you (the owner of the ledger to allow you an opportunity to block or allow access).
+     NOTE: When saving data to the ledger, if you set the MFA parameter to "true" and if suspicious read access to the ledger is detected that read access 
+     will be block temporarily until an email challenge is sent to you (the owner of the ledger to allow you an opportunity to block or allow access).
      
      bool enableMFA = true;   
      string blockTypeName = "SampleDataClass";
