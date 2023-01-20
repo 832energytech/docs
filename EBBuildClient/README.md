@@ -142,7 +142,6 @@ Set the following required parameters.
 NOTE: If you do not specify a ledgername then the email address will automatically be used as the ledger name.
       If you specify a ledgerPreface then the ledgerPreface will be prepended to the ledger name.
       
-
 #7. To enforce multi-factor authentication (MFA) you can set the enableMFA parameter.
      NOTE: When saving data to the ledger, if you set the MFA parameter to "true" and if suspicious read access to the 
      ledger is detected that read access will be block temporarily until an email challenge is sent to you 
