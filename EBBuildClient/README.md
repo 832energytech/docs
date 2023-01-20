@@ -75,7 +75,8 @@ ___
     }
     
     
-#3 The EBBuild cloud services support both REST and Websocket endpoints.  Addtionally, the EBBuild client allows you to connect eith using REST or a Websocket.
+#3 The EBBuild cloud services support both REST and Websocket endpoints.  
+   Addtionally, the EBBuild client allows you to connect eith using REST or a Websocket.
 
 #4 Initialize the core EBBuild services in the following manner:
     #4.1 EBBuildApiFactory  : This class is the core object used to manage connection objects.
