@@ -43,8 +43,10 @@ ___
     #1.1 A link to your private cluster in the cloud.
     #1.2 A security token required to store and retrieve data.
 #2 Install the EBBuild Client nuget package into your Microsoft Visual Studio project.
-#2 Add an appsettings.json file to project, if you don't already have an appsettings.json file added.
-#3 Add the following values to the root of your appsettings.json file added to your project:
+
+#3 Add an appsettings.json file to project, if you don't already have an appsettings.json file added.
+
+#4 Add the following values to the root of your appsettings.json file added to your project:
 -  {
       "EbbuildApiBaseUri": "https://api.ebiblockchain.io/",
 -     "QueryChainToken": [enter the API key obtained supplied to you.],
@@ -108,6 +110,7 @@ ___
              _ebBuildDBApiServiceFactory.GetApiClient()).Result;
          
 #5 The EBBuild cloud servics support query filters used to filter data objects.
+
 #6 To simplify creating filter conditions, the EBBuild client provides a filter builder.
     #6.1 List<string> _filters = EBIBuildAPIHelper.BuildFilter(
         _filters, 
