@@ -60,7 +60,9 @@ ___
 #1 After installing the EBBuildClient nuget package, add the following to your code:
       using EBBuildClient.Core;
       
-#2 EBBuild allows you to store json data without any class/object or a concrete class/object.  For example, if you have the following defined data type and if you wanted to store its data onto the EBBuild cloud storage services, you would following for following example.
+#2 EBBuild allows you to store json data without any class/object or a concrete class/object.  
+   For example, if you have the following defined data type and if you wanted to store its data 
+   onto the EBBuild cloud storage services, you would following for following example.
     public class SampleDataClass
     {
         public string ID {get;set;}
