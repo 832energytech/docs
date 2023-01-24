@@ -180,7 +180,7 @@ ___
 |Neq| Not equal.|	{LastName:Neq:”Miller”}
 |Like, NLike|	Like or not like a value.|	{LastName:Like:”Miller”}
 |ILike, NiLike|	Case insensitive like and not like.| {LastName:ILike:”Miller”}
-|BW|	Begins with| {LastName:BW:”M”}
+|BEGINSWITH|	Begins with| {LastName:BW:”M”}
 |ISNULL, ISNOTNULL|	IsNull or IsNotNull| {LastName:ISNULL:””} {LastName:ISNOTNULL:””}
 
 ___
