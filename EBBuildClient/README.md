@@ -98,14 +98,18 @@ ___
          List<string> recordList = EBBuildAPIService.GetLedgerRecords<string>(_filters, _client1).Result;
          List<string> recordList = EBBuildAPIService.GetLedgerRecords<string>(_filters, _ebBuildDBApiServiceFactory.GetApiClient()).Result;
          List<SampleDataClass> recordList = EBBuildAPIService.GetLedgerRecords<SampleDataClass>(_filters, _ebBuildDBApiServiceFactory.GetApiClient()).Result;
-     
-## Filters
+```
+
+## Filters ##
+```
 #5 The EBBuild cloud services support query filters used to filter data objects.
 #6 To simplify creating filter conditions, the EBBuild client provides a filter builder.
     #6.1 List<string> _filters = EBIBuildAPIHelper.BuildFilter(_filters, "email", FilterOperation.EQ, "dummyuser15@gmail.com");
     #6.2 List<string> _filters = EBIBuildAPIHelper.BuildFilter(_filters, "email", FilterOperation.EQ, "dummyuser15@gmail.com", BooleanOperation.AND);
+```
    
-## Aggregate Functions 
+## Aggregate Filter Functions 
+```
 #7 The EBBuild cloud services support aggregate functions used to obtain group counts and sorting on data objects.
 #8 To simiplify creating aggregate functions, the EBBuild client provides a function builder.
     #8.1 List<string> _filters = EBIBuildAPIHelper.(_filterFunctions, new List<string>() { "Gender", "Age" }, FilterFunctionOperation.GROUPBY);
@@ -119,7 +123,7 @@ NOTE: If you require raw data, then use our internal RawDataType class type.
 NOTE: The RawDataType class has a single property called "RawData" or simply use the "String" data type which will contain your unstructured json payload.
     RawDataType rawData = await EBBuildAPIService.GetLedgerRecord<RawDataType>(EBBuildAPIServices);
     string rawData = await EBBuildAPIService.GetLedgerRecord<string>(EBBuildAPIServices);
-   
+
    
 Set the following required parameters.
      Microsoft.Extensions.Configuration.IConfiguration configuration;
