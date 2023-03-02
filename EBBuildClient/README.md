@@ -5,16 +5,17 @@
 [![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
 ___
 ## Features
+##
 ___
 If your application requires cloud storage of unstructured JSON or key/value paired data, the EB Build client is an affordable and extremely fast alternative to any of the following solutions:
 1. Couchbase
 2. Redis
 3. DynamoDB
 4. MongoDB
-
+##
 ___
 ## Benefits
-
+##
 ___
 - ✨Extremely affordable fixed fee pricing!
 - ✨Extremely secure blockchain encryption!
@@ -24,8 +25,9 @@ ___
 ##
 ___
 ## Obtaining a Sandbox API Key
+##
 ___
-
+##
 EBBuild cloud services can be accessed via our sandbox for a limited time.
 The EBBuild Client requires an API key before using the sandbox.  Obtaining a sandbox API key is extremely easy! 
 Follow the next steps to obtain an API key.
@@ -38,40 +40,37 @@ ___
 ## #3. Add the following dependencies to your project:
        3.1 Microsoft.AspNetCore.SignalR.Client version 7.0.2 (or higher)
        3.2 Microsoft.AspNetCore.SignalR.Protocols.MessagePack version 7.0.2 (or higher)
+##
+##
 ___
 ## Post-Installation Steps:  
+##
 ___
 ```sh
 #1 After creating a private cluster you will receive an automated email with the following:
     #1.1 A link to your private cluster in the cloud.
     #1.2 A security token required to store and retrieve data.
 #2 Install the EBBuild Client nuget package into your Microsoft Visual Studio project.
-
-#3 Add an appsettings.json file to project, if you don't already have an appsettings.json file added.
-
-#4 Add the following values to the root of your appsettings.json file added to your project:
--   {
+#2 Add an appsettings.json file to project, if you don't already have an appsettings.json file added.
+#3 Add the following values to the root of your appsettings.json file added to your project:
+-  {
       "EbbuildApiBaseUri": [enter the url provided by EBI, INc],
 -     "EbbuildApiToken": [enter the API key obtained supplied to you.],
 -     "EbbuildApiRoles": [enter user groups here.  For example you could enter: "Testers"],
-      "EbbuildRegistrationHost": [enter the name of company or entity: "Company ABC, Inc"],
-      "EbbuildConfigValuesPath": "[if your configuration values are stored with a prefix like: "Settings:EbbuildApiToken", 
-                                   then set this to "Settings" so that the API Client can successfully find your values in 
-                                   your appsettings.json file].  Otherwise, leave this empty with double quotes."
+      "EbbuildRegistrationHost": [enter the name of company or entity: "Company ABC, Inc"]
    }
 ```
 ##
 ___
 ## How To's
+##
 ___
-
+##
 ```sh
 #1 After installing the EBBuildClient nuget package, add the following to your code:
       using EBBuildClient.Core;
       
-#2 EBBuild allows you to store json data without any class/object or a concrete class/object.  
-   For example, if you have the following defined data type and if you wanted to store its data 
-   onto the EBBuild cloud storage services, you would following for following example.
+#2 EBBuild allows you to store json data without any class/object or a concrete class/object.  For example, if you have the following defined data type and if you wanted to store its data onto the EBBuild cloud storage services, you would following for following example.
     public class SampleDataClass
     {
         public string ID {get;set;}
@@ -86,55 +85,38 @@ ___
     }
     
     
-#3 The EBBuild cloud services support both REST and Websocket endpoints.  
-   Addtionally, the EBBuild client allows you to connect eith using REST or a Websocket.
+#3 The EBBuild cloud services support both REST and Websocket endpoints.  Addtionally, the EBBuild client allows you to connect eith using REST or a Websocket.
 
 #4 Initialize the core EBBuild services in the following manner:
     #4.1 EBBuildApiFactory  : This class is the core object used to manage connection objects.
-         EBBuildApiFactory _ebBuildDBApiServiceFactory = new EBBuildApiFactory(
-             _maxConnections, 
-             Program._configuation, 
-             _ebbuildDBUserEmail, 
-             _ebbuildDBTenantId, 
-             _ebbuildDBLedgerPreface, 
-             _ebbuildDBLedgerName, 
-             _ebbuildDBApiBaseUri, 
-             _maxRecordsReturned, 
-             _ebbuildDBUseWebSockets);
+         EBBuildApiFactory _ebBuildDBApiServiceFactory = new EBBuildApiFactory(_maxConnections, Program._configuation, _ebbuildDBUserEmail, _ebbuildDBTenantId, _ebbuildDBLedgerPreface, _ebbuildDBLedgerName, _ebbuildDBApiBaseUri, _maxRecordsReturned, _ebbuildDBUseWebSockets);
     
     #4.2 IEBBuildAPIService : This interface is used for all connection object created by the EBBuildApiFactory.
          IEBBuildAPIService _client1 = _ebBuildDBApiServiceFactory.GetApiClient();
          
     #4.3 EBBuildAPIService  : This is a static class used to calling all CRUD methods.
-         List<string> recordList = EBBuildAPIService.GetLedgerRecords<string>(
-             _filters, 
-             _client1).Result;
-         List<string> recordList = EBBuildAPIService.GetLedgerRecords<string>(
-             _filters, 
-             _ebBuildDBApiServiceFactory.GetApiClient()).Result;
-         List<SampleDataClass> recordList = EBBuildAPIService.GetLedgerRecords<SampleDataClass>(
-             _filters, 
-             _ebBuildDBApiServiceFactory.GetApiClient()).Result;
-         
-#5 The EBBuild cloud servics support query filters used to filter data objects.
-
+         List<string> recordList = EBBuildAPIService.GetLedgerRecords<string>(_filters, _client1).Result;
+         List<string> recordList = EBBuildAPIService.GetLedgerRecords<string>(_filters, _ebBuildDBApiServiceFactory.GetApiClient()).Result;
+         List<SampleDataClass> recordList = EBBuildAPIService.GetLedgerRecords<SampleDataClass>(_filters, _ebBuildDBApiServiceFactory.GetApiClient()).Result;
+     
+## Filters
+#5 The EBBuild cloud services support query filters used to filter data objects.
 #6 To simplify creating filter conditions, the EBBuild client provides a filter builder.
-    #6.1 List<string> _filters = EBIBuildAPIHelper.BuildFilter(
-        _filters, 
-        "email", 
-        FilterOperation.EQ, 
-        "dummyuser15@gmail.com");
-    #6.2 List<string> _filters = EBIBuildAPIHelper.BuildFilter(
-        _filters, 
-        "email", 
-        FilterOperation.EQ, 
-        "dummyuser15@gmail.com", 
-        BooleanOperation.AND);
+    #6.1 List<string> _filters = EBIBuildAPIHelper.BuildFilter(_filters, "email", FilterOperation.EQ, "dummyuser15@gmail.com");
+    #6.2 List<string> _filters = EBIBuildAPIHelper.BuildFilter(_filters, "email", FilterOperation.EQ, "dummyuser15@gmail.com", BooleanOperation.AND);
+   
+## Aggregate Functions 
+#7 The EBBuild cloud services support aggregate functions used to obtain group counts and sorting on data objects.
+#8 To simiplify creating aggregate functions, the EBBuild client provides a function builder.
+    #8.1 List<string> _filters = EBIBuildAPIHelper.(_filterFunctions, new List<string>() { "Gender", "Age" }, FilterFunctionOperation.GROUPBY);
+    #8.2 List<string> _filters = EBIBuildAPIHelper.BuildFilterFunction(_filterFunctions, new List<string>() { "LastName" }, FilterFunctionOperation.ORDERBY_DESC);
     
- NOTE: If you require raw data, then use our internal RawDataType class type.
-    NOTE: The RawDataType class has a single property called "RawData" or simply use the "String" data 
-    type which will contain your unstructured json payload.
-    
+NOTE: In-order to see the group count value, you must include into your DTO a field named "GroupCount".
+      The results (when groupBy is used) will only include values for the fields in the groupby clause and the GroupCount field.
+      
+NOTE: If you require raw data, then use our internal RawDataType class type.
+
+NOTE: The RawDataType class has a single property called "RawData" or simply use the "String" data type which will contain your unstructured json payload.
     RawDataType rawData = await EBBuildAPIService.GetLedgerRecord<RawDataType>(EBBuildAPIServices);
     string rawData = await EBBuildAPIService.GetLedgerRecord<string>(EBBuildAPIServices);
    
@@ -149,10 +131,9 @@ Set the following required parameters.
 NOTE: If you do not specify a ledgername then the email address will automatically be used as the ledger name.
       If you specify a ledgerPreface then the ledgerPreface will be prepended to the ledger name.
       
+
 #7. To enforce multi-factor authentication (MFA) you can set the enableMFA parameter.
-     NOTE: When saving data to the ledger, if you set the MFA parameter to "true" and if suspicious read access to the 
-     ledger is detected that read access will be block temporarily until an email challenge is sent to you 
-     (the owner of the ledger to allow you an opportunity to block or allow access).
+     NOTE: When saving data to the ledger, if you set the MFA parameter to "true" and if suspicious read access to the ledger is detected that read access will be block temporarily until an email challenge is sent to you (the owner of the ledger to allow you an opportunity to block or allow access).
      
      bool enableMFA = true;   
      string blockTypeName = "SampleDataClass";
@@ -166,8 +147,9 @@ NOTE: If you do not specify a ledgername then the email address will automatical
 ##
 ___
 ## Adding Filter Conditions
+##
 ___
-
+##
 | Operation | Description | Example | Notes |
 | ------ | ------ | ------ | ------ |
 |Regexp	|Regular expressions	| {LastName:REGEX:\\b[L]\\w+} | ie: Match the lastname that begins with the letter "L".  See the "Regular Expression - Documentation (below)"
@@ -180,8 +162,6 @@ ___
 |Neq| Not equal.|	{LastName:Neq:”Miller”}
 |Like, NLike|	Like or not like a value.|	{LastName:Like:”Miller”}
 |ILike, NiLike|	Case insensitive like and not like.| {LastName:ILike:”Miller”}
-|BEGINSWITH|	Begins with| {LastName:BEGINSWITH:”M”}
-|ISNULL, ISNOTNULL|	IsNull or IsNotNull| {LastName:ISNULL:””} {LastName:ISNOTNULL:””}
 
 ___
 ## Regular Expression - Documentation
@@ -225,8 +205,9 @@ ___
 | \uhhhh|Matches a character with the 4-digits hexadecimal code.
 ___
 ## Company Contact Information
+##
 ___
-
+##
 | Contact | Email |
 | ------ | ------ |
 | Technical Support | support@everythingblockchain.io |
@@ -238,8 +219,9 @@ ___
 ##
 ___
 ## License
+##
 ___
-
+##
 MIT- The API is and will always remain free!  The data storage is based on a fixed fee.  Contact EverythingBlockchain, Inc for details.
 
 
