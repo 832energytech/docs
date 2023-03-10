@@ -148,6 +148,22 @@ NOTE: If you do not specify a ledgername then the email address will automatical
       enableMFS,
       blockTypeName);
 ```
+
+##
+___
+## Basic Crud Functions
+##
+___
+##
+| Function | Description |
+| ------ | ------ |
+|GetAllLedgersAsync| Get list of all ledgers (tables) in EBBuild DB.
+|GetLedgerRecordsAsync|	Get all filtered blocks (records) in EBBuild DB for a specific ledger (table).
+|SaveDataToLedgerWithNoResponse	| Save a block (record) to a ledger (Table) based on a schema (class).
+|DeleteDataFromLedgerWithNoResponse| Delete (archive) a block (record) in a ledger (table) based on a schema (class).
+|UpdateDataToLedgerWithNoResponse|Update a block (record) to a ledger (Table) based on a schema (class).
+
+
 ##
 ___
 ## Adding Filter Conditions
