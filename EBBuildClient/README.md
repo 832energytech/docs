@@ -112,7 +112,7 @@ ___
 ```
 #7 The EBBuild cloud services support aggregate functions used to obtain group counts and sorting on data objects.
 #8 To simiplify creating aggregate functions, the EBBuild client provides a function builder.
-    #8.1 List<string> _filters = EBIBuildAPIHelper.(_filterFunctions, new List<string>() { "Gender", "Age" }, FilterFunctionOperation.GROUPBY);
+    #8.1 List<string> _filters = EBIBuildAPIHelper.BuildFilterFunction(_filterFunctions, new List<string>() { "Gender", "Age" }, FilterFunctionOperation.GROUPBY);
     #8.2 List<string> _filters = EBIBuildAPIHelper.BuildFilterFunction(_filterFunctions, new List<string>() { "LastName" }, FilterFunctionOperation.ORDERBY_DESC);
     
 NOTE: In-order to see the group count value, you must include into your DTO a field named "GroupCount".
