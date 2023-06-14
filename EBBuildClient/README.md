@@ -11,7 +11,8 @@ If your application requires cloud storage of unstructured JSON or key/value pai
 1. Couchbase
 2. Redis
 3. DynamoDB
-4. MongoDB
+4. CosmoDB
+5. MongoDB
 ##
 ___
 ## Benefits
