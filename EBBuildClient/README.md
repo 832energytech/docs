@@ -1,5 +1,5 @@
 ﻿ [![N|Solid](https://github.com/832energytech/images/blob/main/logo.svg)](https://everythingblockchain.io)
-# BuildDB API Client
+# BuildDB&trade; API Client
 ## _The Official API Client for Blockchain-based Cloud Storage Services!_
 
 [![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
