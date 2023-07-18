@@ -188,17 +188,18 @@ ___
 ___
 ## Distributed Denial of Service (DDoS) Features - Documentation
 ___
-Once you have data stored securely within BuildDB, you need to ensure users can access it.
-Combating DDoS requires capabilities that firewalls don't possess.
+In today’s datacentric world, data is as valuable as gold.  If data is gold, then the databases are the gold mines!  
+What happens when you can no longer access that data due to factors such as high request volumes that create either intentional or unintentional denial of service attacks?
+The answer is more business level intelligent to analyze data before it is added to storage. 
+The solution is BuildDB which the first database that implements a robust distributed denial of service (DDoS) feature directly within its database architecture.
 - ✨ Firewalls have no intelligence on what business transaction is being performed. Thus you cannot implement brute force check against transactions. It is either URL or IP.
 - ✨ If a firewall has to implement brute force attack detection, it has to read the whole payload and then inspect for patterns. This requires high CPU Á Memory usage on Firewall. In case of https, it requires you to terminate https at firewall level so that it can read the received data.
 - ✨ Most firewalls have basic scripting language to configure rules. Some do support JavaScript like language, but check the CPU cost of that and the price tag. With HackerSpray, you get .NET code, so the sky is the limit.
 - ✨ Firewalls have limited storage for logs and shipping logs from firewall to analysis engines puts stress on the firewall, especially when you are under attack. Many a times, we experience Firewall CPU exhaustion when it is blocking DOS, while it is writing all those attacks in a log and also shipping the logs to our analysis servers.
 
-The answer is more business level intelligent to analyze data before it is added to storage.
-The solution is BuildDB!
-Before storing data into BuildDB, simply invoke the following command "GetDDoSStatisticsAync" to instandly gather metrics on the frequency of records written using the same filterKey to allow or block adding additional records initiated by bad actors.
+Before storing data into BuildDB, simply invoke the following command "GetDDoSStatisticsAync" to instandly gather metrics on the frequency of records written using the same filterKey to allow or block adding additional records initiated by bad actors. 
 It's that easy to implement DDoS!
+
 ```
  (List<ClassTypeX> DoSRecordList, paginationDetails) = EBBuildAPIService.GetDDoSStatisticsAsync<ClassTypeX>(
               asyncWrapper: _ebBuildDBApiServiceFactory.GetAsyncWrapper(),
