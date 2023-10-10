@@ -66,8 +66,6 @@ ___
 ___
 ## How To's
 ##
-___
-##
 ```sh
 #1 After installing the EBBuildClient nuget package, add the following to your code:
       using EBBuildClient.Core;
@@ -156,8 +154,6 @@ NOTE: If you do not specify a ledgername then the email address will automatical
 ___
 ## Basic CRUD Functions
 ##
-___
-##
 | Function | Description |
 | ------ | ------ |
 |GetAllLedgersAsync| Get list of all ledgers (tables) in EBBuild DB.
@@ -170,8 +166,6 @@ ___
 ##
 ___
 ## Adding Filter Conditions
-##
-___
 ##
 | Operation | Description | Example | Notes |
 | ------ | ------ | ------ | ------ |
@@ -190,9 +184,7 @@ ___
 
 ## Adding Parent Child Relationships
 ##
-___
-##
-| Foreign Key Relationships |
+| Defining Foreign Key Relationships |
 | ------------------------ |
 |BuildDB (now) supports foreign key relationships just like SQL relational databases, but without the limitation of foreign key constraints.  This means (unlike) tranditional foreign key contraints you can define foreign keys within your definition. Using the following class, SchemaRelationshipDef , it is possible to define foreign key constraints on the fly!  One of the parameters to the method "GetLedgerRecordsAsync()" is the SchemaRelationshipDef class.  As the retrieval of all child data is conducted as a lazy load operation, when passing in the SchemaRelationshipDef class, you must (also) pass in a single object that you wish to populate with children.|
 
