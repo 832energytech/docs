@@ -5,8 +5,6 @@
 [![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
 ___
 ## Features
-##
-___
 If your application requires cloud storage of unstructured JSON or key/value paired data, the EB Build client is an affordable and extremely fast alternative to any of the following solutions:
 1. Couchbase
 2. Redis
@@ -16,8 +14,6 @@ If your application requires cloud storage of unstructured JSON or key/value pai
 ##
 ___
 ## Benefits
-##
-___
 - ✨Extremely affordable fixed fee pricing!
 - ✨Extremely secure blockchain encryption!
 - ✨Extremely fast event messaging!
@@ -27,9 +23,6 @@ ___
 ##
 ___
 ## Obtaining a Sandbox API Key
-##
-___
-##
 EBBuild cloud services can be accessed via our sandbox for a limited time.
 The EBBuild Client requires an API key before using the sandbox.  Obtaining a sandbox API key is extremely easy! 
 Follow the next steps to obtain an API key.
@@ -46,8 +39,6 @@ ___
 ##
 ___
 ## Post-Installation Steps:  
-##
-___
 ```sh
 #1 After creating a private cluster you will receive an automated email with the following:
     #1.1 A link to your private cluster in the cloud.
@@ -65,7 +56,6 @@ ___
 ##
 ___
 ## How To's
-##
 ```sh
 #1 After installing the EBBuildClient nuget package, add the following to your code:
       using EBBuildClient.Core;
@@ -153,7 +143,6 @@ NOTE: If you do not specify a ledgername then the email address will automatical
 ##
 ___
 ## Basic CRUD Functions
-##
 | Function | Description |
 | ------ | ------ |
 |GetAllLedgersAsync| Get list of all ledgers (tables) in EBBuild DB.
@@ -161,7 +150,6 @@ ___
 |SaveDataToLedgerWithNoResponse	| Save a block (record) to a ledger (Table) based on a schema (class).
 |DeleteDataFromLedgerWithNoResponse| Delete (archive) a block (record) in a ledger (table) based on a schema (class).
 |UpdateDataToLedgerWithNoResponse|Update a block (record) to a ledger (Table) based on a schema (class).
-
 
 ##
 ___
@@ -183,7 +171,6 @@ ___
 ___
 
 ## Adding Parent Child Relationships
-##
 | Defining Foreign Key Relationships |
 | ------------------------ |
 |BuildDB (now) supports foreign key relationships just like SQL relational databases, but without the limitation of foreign key constraints.  This means (unlike) tranditional foreign key contraints you can define foreign keys within your definition. Using the following class, SchemaRelationshipDef , it is possible to define foreign key constraints on the fly!  One of the parameters to the method "GetLedgerRecordsAsync()" is the SchemaRelationshipDef class.  As the retrieval of all child data is conducted as a lazy load operation, when passing in the SchemaRelationshipDef class, you must (also) pass in a single object that you wish to populate with children.|
@@ -239,7 +226,6 @@ It's that easy to implement DDoS!
 ```
 ___
 ## Regular Expression - Documentation
-___
 | Character | What does it do? | 
 | ------ | ------ |
 |	\    |  Used to indicate that the next character should NOT be interpreted literally. For example, the character 'w' by itself will be interpreted as 'match the character w', but using '\w' signifies 'match an alpha-numeric character including underscore'.Used to indicate that a metacharacter is to be interpreted literally. For example, the '.' metacharacter means 'match any single character but a new line', but if we would rather match a dot character instead, we would use '\.'.
@@ -279,9 +265,6 @@ ___
 | \uhhhh|Matches a character with the 4-digits hexadecimal code.
 ___
 ## Company Contact Information
-##
-___
-##
 | Contact | Email |
 | ------ | ------ |
 | Technical Support | support@everythingblockchain.io |
@@ -293,9 +276,6 @@ ___
 ##
 ___
 ## License
-##
-___
-##
 MIT- The API is and will always remain free!  The data storage is based on a fixed fee.  Contact EverythingBlockchain, Inc for details.
 
 
