@@ -72,14 +72,15 @@ ___
 #1 After installing the EBBuildClient nuget package, add the following to your code:
       using EBBuildClient.Core;
       
-#2 EBBuild allows you to store json data without any class/object or a concrete class/object.  For example, if you have the following defined data type and if you wanted to store its data onto the EBBuild cloud storage services, you would following for following example.
-    public class SampleDataClass
+#2 EBBuild allows you to store json data without any class/object or a concrete class/object.  For example, if you have the following defined data type and if you wanted to store its data onto the EBBuild cloud storage services, you would following for following example.  ALL classes passed in MUST implement the "CommonInterfaces" interface.  The "CommonInterfaces" interface ensure that all classes can support parent chld relationships and aggregate function data.
+
+    public class SampleDataClass : CommonInterfaces
     {
         public string ID {get;set;}
         public string Name {get; set;}
         public AddressClass Address1 {get; set;}
     }
-    public class AddressClass
+    public class AddressClass : CommonInterfaces
     {
         public string City {get; set;}
         public string State {get; set;}
@@ -186,20 +187,52 @@ ___
 |ILike, NiLike|	Case insensitive like and not like.| {LastName:ILike:”Miller”}
 
 ___
+
+## Adding Parent Child Relationships
+##
+___
+##
+| Foreign Key Relationships |
+| ------------------------ |
+|BuildDB (now) supports foreign key relationships just like SQL relational databases, but without the limitation of foreign key constraints.  This means (unlike) tranditional foreign key contraints you can define foreign keys within your definition. Using the following class, SchemaRelationshipDef , it is possible to define foreign key constraints on the fly!  One of the parameters to the method "GetLedgerRecordsAsync()" is the SchemaRelationshipDef class.  As the retrieval of all child data is conducted as a lazy load operation, when passing in the SchemaRelationshipDef class, you must (also) pass in a single object that you wish to populate with children.|
+
+SchemaRelationshipDef _schemaDefinition = new SchemaRelationshipDef()
+{
+    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; RelationshipName = "RecentSearches2Children",
+    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Relationships = new List<SchemaRelationshipDetails>()
+    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; { 
+          &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; new SchemaRelationshipDetails()
+          &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; {                           
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;TargetSchemaName = typeof(Search_Child).AssemblyQualifiedName.Substring(0,typeof(Search_Child).AssemblyQualifiedName.IndexOf(",")),
+                 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;TargetSchemaType = typeof(Recent_Searche_Child),
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Relationship = new SchemaRelationship()
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;{
+                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;SourceSchemaKey = "PK", 
+                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;TargetSchemaKey = "ParentPK",
+                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp; Filters= _childFilters,
+                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp; FilterFunctions = _childFilterFunctions                                    
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;},
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ChildRelationship = null
+            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;}
+     &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;}
+&nbsp;&nbsp;};
+
+
+___
+
 ## Distributed Denial of Service (DDoS) Features - Documentation
 ___
-In today’s datacentric world, data is as valuable as gold.  If data is gold, then the databases are the gold mines!  
-What happens when you can no longer access that data due to factors such as high request volumes that create either intentional or unintentional denial of service attacks?
-The answer is more business level intelligent to analyze data before it is added to storage. 
-The solution is BuildDB which the first database that implements a robust distributed denial of service (DDoS) feature directly within its database architecture.
+Once you have data stored securely within BuildDB, you need to ensure users can access it.
+Combating DDoS requires capabilities that firewalls don't possess.
 - ✨ Firewalls have no intelligence on what business transaction is being performed. Thus you cannot implement brute force check against transactions. It is either URL or IP.
 - ✨ If a firewall has to implement brute force attack detection, it has to read the whole payload and then inspect for patterns. This requires high CPU Á Memory usage on Firewall. In case of https, it requires you to terminate https at firewall level so that it can read the received data.
 - ✨ Most firewalls have basic scripting language to configure rules. Some do support JavaScript like language, but check the CPU cost of that and the price tag. With HackerSpray, you get .NET code, so the sky is the limit.
 - ✨ Firewalls have limited storage for logs and shipping logs from firewall to analysis engines puts stress on the firewall, especially when you are under attack. Many a times, we experience Firewall CPU exhaustion when it is blocking DOS, while it is writing all those attacks in a log and also shipping the logs to our analysis servers.
 
-Before storing data into BuildDB, simply invoke the following command "GetDDoSStatisticsAync" to instandly gather metrics on the frequency of records written using the same filterKey to allow or block adding additional records initiated by bad actors. 
+The answer is more business level intelligent to analyze data before it is added to storage.
+The solution is BuildDB!
+Before storing data into BuildDB, simply invoke the following command "GetDDoSStatisticsAync" to instandly gather metrics on the frequency of records written using the same filterKey to allow or block adding additional records initiated by bad actors.
 It's that easy to implement DDoS!
-
 ```
  (List<ClassTypeX> DoSRecordList, paginationDetails) = EBBuildAPIService.GetDDoSStatisticsAsync<ClassTypeX>(
               asyncWrapper: _ebBuildDBApiServiceFactory.GetAsyncWrapper(),
