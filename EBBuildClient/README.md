@@ -6,20 +6,30 @@
 ___
 ## Features
 If your application requires cloud storage of unstructured JSON or key/value paired data, the EB Build client is an affordable and extremely fast alternative to any of the following solutions:
-1. Couchbase
-2. Redis
-3. DynamoDB
-4. CosmoDB
-5. MongoDB
+
+•	AWS DynamoDB
+•	Azure CosmoDB
+•	Google Cloud Datastore 
+•	Oracle NoSQL Database
+•	PostgreSQL
+•	MongoDB
+•	RavenDB
+•	Redis
+•	Couchbase
+
 ##
 ___
 ## Benefits
-- ✨Extremely affordable fixed fee pricing!
-- ✨Extremely secure blockchain encryption!
-- ✨Extremely fast event messaging!
-- ✨Extremely powerful distributed denial of service (DDoS) features!
-- ✨Extremely scalable with built-in cluster-wide auto-scaling!
-- ✨Extremely simple integration with dynamic environments!
+•	✨Extremely affordable flexible fee pricing based on database size!
+•	✨Extremely secure blockchain encryption!
+•	✨Extremely fast event messaging!
+•	✨Extremely powerful distributed denial of service (DDoS) features!
+•	✨Extremely scalable with built-in cluster-wide auto-scaling!
+•	✨Extremely powerful AI-based fuzzy matching for powerful filtering!
+•	✨Extremely powerful lazy loading of parent child relationship without indexes!
+•	✨Extremely simple integration with dynamic environments!
+•	✨Extremely powerful integration that combines NoSQL, relational and vector databases!
+
 ##
 ___
 ## Obtaining a Sandbox API Key
@@ -43,52 +53,68 @@ ___
 #1 After creating a private cluster you will receive an automated email with the following:
     #1.1 A link to your private cluster in the cloud.
     #1.2 A security token required to store and retrieve data.
-#2 Install the EBBuild Client nuget package into your Microsoft Visual Studio project.
+#2 Install the BuildDB Client nuget package into your Microsoft Visual Studio project.
 #2 Add an appsettings.json file to project, if you don't already have an appsettings.json file added.
 #3 Add the following values to the root of your appsettings.json file added to your project:
--  {
-      "EbbuildApiBaseUri": [enter the url provided by EBI, INc],
--     "EbbuildApiToken": [enter the API key obtained supplied to you.],
--     "EbbuildApiRoles": [enter user groups here.  For example you could enter: "Testers"],
-      "EbbuildRegistrationHost": [enter the name of company or entity: "Company ABC, Inc"]
+  {
+     "BuildDBApiBaseUri": [enter the url provided by EBI, INc],
+     "BuildDBApiToken": [enter the API key obtained supplied to you.],
+     "BuildDBApiRoles": [enter user groups here.  
+				For example you could enter: "Testers"],
+     "BuildDBRegistrationHost": [enter the name of company or entity: 
+					"Company ABC, Inc"]
    }
+
 ```
 ##
 ___
 ## How To's
 ```sh
-#1 After installing the EBBuildClient nuget package, add the following to your code:
-      using EBBuildClient.Core;
+#1 After installing the BuildDBClient nuget package, add the following to your code:
+      using BuildDBClient.Core;
       
-#2 EBBuild allows you to store json data without any class/object or a concrete class/object.  For example, if you have the following defined data type and if you wanted to store its data onto the EBBuild cloud storage services, you would following for following example.  ALL classes passed in MUST implement the "CommonInterfaces" interface.  The "CommonInterfaces" interface ensure that all classes can support parent chld relationships and aggregate function data.
+#2 BuildDB allows you to store json data without any class/object or a concrete class/object.  For example, if you have the following defined data type and if you wanted to store its data onto the BuildDB cloud storage services, you would following for following example.  ALL classes passed in MUST implement the "CommonInterfaces" interface.  The "CommonInterfaces" interface ensure that all classes can support parent child relationships and aggregate function data.
 
-    public class SampleDataClass : CommonInterfaces
+    public class SampleDataClass: CommonInterfaces
     {
-        public string ID {get;set;}
+        public string ID {get; set;}
         public string Name {get; set;}
         public AddressClass Address1 {get; set;}
     }
-    public class AddressClass : CommonInterfaces
+    public class AddressClass: CommonInterfaces
     {
         public string City {get; set;}
         public string State {get; set;}
         public string Zip {get; set;}
-    }
+    }       
     
-    
-#3 The EBBuild cloud services support both REST and Websocket endpoints.  Addtionally, the EBBuild client allows you to connect eith using REST or a Websocket.
+#3 The BuildDB cloud services support both REST and Websocket endpoints.  Addtionally, the BuildDB client allows you to connect with using REST or a Websocket.
 
-#4 Initialize the core EBBuild services in the following manner:
-    #4.1 EBBuildApiFactory  : This class is the core object used to manage connection objects.
-         EBBuildApiFactory _ebBuildDBApiServiceFactory = new EBBuildApiFactory(_maxConnections, Program._configuation, _ebbuildDBUserEmail, _ebbuildDBTenantId, _ebbuildDBLedgerPreface, _ebbuildDBLedgerName, _ebbuildDBApiBaseUri, _maxRecordsReturned, _ebbuildDBUseWebSockets);
+#4 Initialize the core BuildDB services in the following manner:
+    #4.1 BuildDBApiFactory : This class is the core object used to manage connection objects.
+         BuildDBApiFactory _BuildDBDBApiServiceFactory = 
+	  new BuildDBApiFactory(
+		_maxConnections, 
+		Program._configuation, 
+		_BuildDBDBUserEmail, 
+		_BuildDBDBTenantId, 
+		_BuildDBDBLedgerPreface, 
+		_BuildDBDBLedgerName, 
+		_BuildDBDBApiBaseUri, 
+		_maxRecordsReturned, 
+		_BuildDBDBUseWebSockets);
     
-    #4.2 IEBBuildAPIService : This interface is used for all connection object created by the EBBuildApiFactory.
-         IEBBuildAPIService _client1 = _ebBuildDBApiServiceFactory.GetApiClient();
+    #4.2 IBuildDBAPIService: This interface is used for all connection 
+         object created by the BuildDBApiFactory.
+         IBuildDBAPIService _client1 = 
+		_BuildDBDBApiServiceFactory.GetApiClient();
          
-    #4.3 EBBuildAPIService  : This is a static class used to calling all CRUD methods.
-         List<string> recordList = EBBuildAPIService.GetLedgerRecords<string>(_filters, _client1).Result;
-         List<string> recordList = EBBuildAPIService.GetLedgerRecords<string>(_filters, _ebBuildDBApiServiceFactory.GetApiClient()).Result;
-         List<SampleDataClass> recordList = EBBuildAPIService.GetLedgerRecords<SampleDataClass>(_filters, _ebBuildDBApiServiceFactory.GetApiClient()).Result;
+    #4.3 BuildDBAPIService: This is a static class used to calling all CRUD 
+	methods.
+         List<string> recordList = BuildDBAPIService.GetLedgerRecords<string>(_filters, _client1).Result;
+         List<string> recordList = BuildDBAPIService.GetLedgerRecords<string>(_filters, _BuildDBDBApiServiceFactory.GetApiClient()).Result;
+         List<SampleDataClass> recordList = BuildDBAPIService.GetLedgerRecords<SampleDataClass>(_filters, _BuildDBDBApiServiceFactory.GetApiClient()).Result;
+
 ```
 
 ## Filters ##
@@ -145,11 +171,167 @@ ___
 ## Basic CRUD Functions
 | Function | Description |
 | ------ | ------ |
+|Database Initialization |       
+|Program._context = new ConfigurationRegistry.StartupContext();  
+|Program._configuation = ConfigurationRegistry.StartupContext.Configuration;
+|String _ebbuildDBApiBaseUri = StartupContext.Configuration?.GetValue<string>("EbbuildApiBaseUri");
+|String _ebbuildDBApiToken = StartupContext.Configuration?.GetValue<string>("EbbuildApiToken");
+|String _ebbuildDBApiRoles = StartupContext.Configuration?.GetValue<string>("EbbuildApiRoles");
+|String _ebbuildDBUserEmail = StartupContext.Configuration?.GetValue<string>("EbbuildUserEmail");
+|string _ebbuildDBTenantId = StartupContext.Configuration?.GetValue<string>("EbbuildTenantId");
+|String _ebbuildDBLedgerEncryption = StartupContext.Configuration?.GetValue<string>("EbbuildLedgerEncryption"); 
+|String _ebbuildDBLedgerPreface = StartupContext.Configuration?.GetValue<string>("EbbuildLedgerPreface");           
+|String _ebbuildDBLedgerName = string.Format("{0}",  StartupContext.Configuration?.GetValue<string>("EbbuildLedgerName"));
+|Bool _ebbuildDBUseWebSockets =  StartupContext.Configuration.GetValue<bool>("EbbuildUseWebSockets");
+|Int32 _ebbuildDBTimeOut = StartupContext.Configuration.GetValue<Int32>("EbbuildTimeOut");
+|Int32 _maxConnections = StartupContext.Configuration.GetValue<Int32>("EbbuildMaxConncetions");
+|Int32 _maxRecordsReturned = StartupContext.Configuration.GetValue<Int32>("EbbuildMaxRecordsReturned");
+|string  _hostRegistration = StartupContext.Configuration.GetValue<string>("EbbuildRegistrationHost");
+|Int32 _asyncScale = StartupContext.Configuration.GetValue<Int32>("EbbuildAsyncScale"); 
+
+
+## 
+| Function | Description |
+| ------ | ------ |
+|Database Factory Creation |  
+|EBBuildApiFactory _ebBuildDBApiServiceFactory = new EBBuildApiFactory(
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; _maxConnections, 
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Program._configuation, 
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;_ebbuildDBApiToken, 
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;_ebbuildDBApiRoles, 
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;_ebbuildDBUserEmail, 
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;_ebbuildDBTenantId, 
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;_ebbuildDBLedgerPreface, 
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;_ebbuildDBLedgerName, 
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;_ebbuildDBApiBaseUri, 
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;_maxRecordsReturned, 
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;_ebbuildDBUseWebSockets,asyncScale: _asyncScale);
+
+## 
+| Function | Description |
+| ------ | ------ |
+|Authentication |  
+|IEBBuildAPIService _client1 = _ebBuildDBApiServiceFactory.GetApiClient();
+|if (await _client1.IsCredentialsValid() == false)
+|{
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;   (string errorMessage, UserRegistrationResponseDto response) = 
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;   await _client1.RegisterNewUserAsync().ConfigureAwait(false);
+|}
+
+## 
+| Function | Description |
+| ------ | ------ |
+|Filter Initialization
+|List<string> _filters = default(List<string>);
+|List<string> _childFilters = default(List<string>);
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;_filters = EBIBuildAPIHelper.BuildFilter(
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;_filters, 
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;"Recent_Searches_FShop_Key", 
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;FilterOperation.REGEX, 
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;"CDG");
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;_childFilters = EBIBuildAPIHelper.BuildFilter(
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;_childFilters, 
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;"Origin", 
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;FilterOperation.REGEX, 
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;"IAH", 
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;BooleanOperation.AND);
+
+
+
+
+## 
+| Function | Description |
+| ------ | ------ |
+|Database CRUD | 
 |GetAllLedgersAsync| Get list of all ledgers (tables) in EBBuild DB.
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;var allLedgers = _client1.GetAllLedgersAsync().Result;
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;var ledgers = _client1.GetAllLedgersAsync(_client1.GetLedgerName()).Result;
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;if (ledgers.Item2.Count() == 0) 
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;{
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;   var newLedger = _client1.CreateLedgerAsync(_client2.GetLedgerName()).Result;
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;}
+
+## 
+| Function | Description |
+| ------ | ------ |
 |GetLedgerRecordsAsync|	Get all filtered blocks (records) in EBBuild DB for a specific ledger (table).
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /*/
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /*/ Load only parents 
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /*/
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;(List<Recent_Searches_Flight_Shop> shopList, paginationDetails) = 
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;EBBuildAPIService.GetLedgerRecordsAsync<Recent_Searches_Flight_Shop>(
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;asyncWrapper: _ebBuildDBApiServiceFactory.GetAsyncWrapper(),
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;parentToLazyLoadChildren: null,
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;filterConditions: _filters,  
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;filterFunctions: _filterFunctions,
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;relationship: _schemaDefinition,
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;servicContext: _client1,
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;refreshCacheResults: false).Result;
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/*/
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; * Lazyloading child of parent
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/*/
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;(List<Recent_Searches_Flight_Shop> shopListChildren, paginationDetails) = 
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;EBBuildAPIService.GetLedgerRecordsAsync<Recent_Searches_Flight_Shop>(
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;asyncWrapper: _ebBuildDBApiServiceFactory.GetAsyncWrapper(),
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;parentToLazyLoadChildren: shopList[1],
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;filterConditions: _filters,
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;filterFunctions: _filterFunctions,
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;relationship: _schemaDefinition,
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;servicContext: _client1,
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;refreshCacheResults: false).Result;
+
+## 
+| Function | Description |
+| ------ | ------ |
 |SaveDataToLedgerWithNoResponse	| Save a block (record) to a ledger (Table) based on a schema (class).
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;EBBuildAPIService.SaveDataToLedgerWithNoResponse<Recent_Searches_Flight_Shop>(
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;shop, 
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;_ebBuildDBApiServiceFactory.GetAsyncWrapper(), 
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;_queryPatterns, 
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;_queryPatternsFunctions, 
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;_client1, 
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;blockName, 
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;blockHashKey);
+
+## 
+| Function | Description |
+| ------ | ------ |
 |DeleteDataFromLedgerWithNoResponse| Delete (archive) a block (record) in a ledger (table) based on a schema (class).
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;EBBuildAPIService.DeleteDataFromLedgerWithNoResponse<Recent_Searches_Flight_Shop>(
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;_filters, 
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;_client1, 
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;_ebBuildDBApiServiceFactory.GetAsyncWrapper());
+
+## 
+| Function | Description |
+| ------ | ------ |
 |UpdateDataToLedgerWithNoResponse|Update a block (record) to a ledger (Table) based on a schema (class).
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;EBBuildAPIService.UpdateDataToLedgerWithNoResponse<Recent_Searches_Flight_Shop_Child>(
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;shopChild, 
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;_ebBuildDBApiServiceFactory.GetAsyncWrapper(), 
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;_childQueryPatterns, 
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;_queryPatternsFunctions, 
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;_client1, 
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;childBlockName, 
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;childBlockHashKey);
+
+## 
+| Function | Description |
+| ------ | ------ |
+| GetDDoSStatisticsAsync	|Conduct statistical analysis on records for a past time interval.
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;(List<Recent_Searches_Flight_Shop> shopListDoS, paginationDetails) = 
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;EBBuildAPIService.GetDDoSStatisticsAsync<Recent_Searches_Flight_Shop>(
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;asyncWrapper: _ebBuildDBApiServiceFactory.GetAsyncWrapper(),
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;filterKey: "Recent_Searches_FShop_Device_Id",
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;filterKeyValue: "cac5bf97-2acc-461c-b4dd-c962bd45f996",
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;DateTimeKey: "Recent_Searches_FShop_Search_Time_Stamp", 
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;timeInterval: DoSTimeInterval.ELAPSEDMINUTES,
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;DDoSTimeIntervalValue: "53100000",
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;servicContext: _client1,
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;EnforceCacheResults: false,
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;StringNameOfType: typeof(Recent_Searches_Flight_Shop).Name).Result;
+
 
 ##
 ___
@@ -158,6 +340,7 @@ ___
 | Operation | Description | Example | Notes |
 | ------ | ------ | ------ | ------ |
 |Regexp	|Regular expressions	| {LastName:REGEX:\\b[L]\\w+} | ie: Match the lastname that begins with the letter "L".  See the "Regular Expression - Documentation (below)"
+|FuzzyMatch	| AI pattern match |	{LastName:FuzzyMatch:Biden}	|ie: Match the lastname using artificial intelligence to find nuances in spelling.”
 |Or|	Logical OR	| {FirstName:EQ:Joe:OR},{LastName:EQ:Biden}| Filter conditions combine multiple filter conditions by adding an optional "AND" "OR" boolean operator to the end of each filter.
 |Gt, Gte|	Greater than or equal.|	{Age:Gte:25}
 |Le, Lte|	Less than or less than or equal. |	{Age:Lte:25}
