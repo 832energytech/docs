@@ -7,28 +7,28 @@ ___
 ## Features
 If your application requires cloud storage of unstructured JSON or key/value paired data, the EB Build client is an affordable and extremely fast alternative to any of the following solutions:
 
-•	AWS DynamoDB
-•	Azure CosmoDB
-•	Google Cloud Datastore 
-•	Oracle NoSQL Database
-•	PostgreSQL
-•	MongoDB
-•	RavenDB
-•	Redis
-•	Couchbase
+- ✨ AWS DynamoDB
+- ✨ Azure CosmoDB
+- ✨ Google Cloud Datastore 
+- ✨ Oracle NoSQL Database
+- ✨ PostgreSQL
+- ✨ MongoDB
+- ✨ RavenDB
+- ✨ Redis
+- ✨ Couchbase
 
 ##
 ___
 ## Benefits
-•	✨Extremely affordable flexible fee pricing based on database size!
-•	✨Extremely secure blockchain encryption!
-•	✨Extremely fast event messaging!
-•	✨Extremely powerful distributed denial of service (DDoS) features!
-•	✨Extremely scalable with built-in cluster-wide auto-scaling!
-•	✨Extremely powerful AI-based fuzzy matching for powerful filtering!
-•	✨Extremely powerful lazy loading of parent child relationship without indexes!
-•	✨Extremely simple integration with dynamic environments!
-•	✨Extremely powerful integration that combines NoSQL, relational and vector databases!
+- ✨ xtremely affordable flexible fee pricing based on database size!
+- ✨ xtremely secure blockchain encryption!
+- ✨ xtremely fast event messaging!
+- ✨ xtremely powerful distributed denial of service (DDoS) features!
+- ✨ xtremely scalable with built-in cluster-wide auto-scaling!
+- ✨ xtremely powerful AI-based fuzzy matching for powerful filtering!
+- ✨ xtremely powerful lazy loading of parent child relationship without indexes!
+- ✨ xtremely simple integration with dynamic environments!
+- ✨ xtremely powerful integration that combines NoSQL, relational and vector databases!
 
 ##
 ___
