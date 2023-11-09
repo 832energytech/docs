@@ -15,7 +15,7 @@ If your application requires cloud storage of unstructured JSON or key/value pai
 - ✨ MongoDB
 - ✨ RavenDB
 - ✨ Redis
-- ✨ Couchbase
+Couchbase
 
 ##
 ___
@@ -212,11 +212,34 @@ ___
 | ------ | ------ |
 |Authentication |  
 |IEBBuildAPIService _client1 = _ebBuildDBApiServiceFactory.GetApiClient();
-|if (await _client1.IsCredentialsValid() == false)
+|(bool isAuth, AuthStatus authMessage) = await _client1.IsCredentialsValid();
+|if (isAuth == false)
 |{
-|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;   (string errorMessage, UserRegistrationResponseDto response) = 
-|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;   await _client1.RegisterNewUserAsync().ConfigureAwait(false);
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  if (authMessage == AuthStatus.TokenInvalid)
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;   {
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;      Debug.WriteLine(string.Format("Your API Token is invalid!"));
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;      return;
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  }
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;   else
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;   {
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;   if (authMessage == AuthStatus.TokenInvalidForEnvironment)
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;   {
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;   Debug.WriteLine(string.Format("Your cluster is invaid!"));
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;   return;
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;   }
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;   else
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;   {
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;   if (authMessage == AuthStatus.Failed)
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;   {
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;   Debug.WriteLine(string.Format("Authentication failed!"));
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;   return;
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;   }
+|&nbsp; &nbsp; &nbsp; &nbsp;    }
+|&nbsp; &nbsp; }
+|&nbsp; &nbsp;  (string errorMessage, UserRegistrationResponseDto response) = await  _client1.RegisterNewUserAsync().ConfigureAwait(false);
 |}
+            
+
 
 ## 
 | Function | Description |
