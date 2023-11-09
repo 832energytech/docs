@@ -212,24 +212,24 @@ ___
 | ------ | ------ |
 |Authentication |  
 |IEBBuildAPIService _client1 = _ebBuildDBApiServiceFactory.GetApiClient();
-|(bool isAuth, AuthStatus authMessage) = await _client1.IsCredentialsValid();
-|if (isAuth == false)
+|AuthStatus authStatus = await _client1.IsCredentialsValid();
+|if (authStatus != AuthStatus.Success)
 |{
-|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  if (authMessage == AuthStatus.TokenInvalid)
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  if (authStatus == AuthStatus.TokenInvalid)
 |&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;   {
 |&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;      Debug.WriteLine(string.Format("Your API Token is invalid!"));
 |&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;      return;
 |&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  }
 |&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;   else
 |&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;   {
-|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;   if (authMessage == AuthStatus.TokenInvalidForEnvironment)
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;   if (authStatus == AuthStatus.TokenInvalidForEnvironment)
 |&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;   {
 |&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;   Debug.WriteLine(string.Format("Your cluster is invaid!"));
 |&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;   return;
 |&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;   }
 |&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;   else
 |&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;   {
-|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;   if (authMessage == AuthStatus.Failed)
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;   if (authStatus == AuthStatus.Failed)
 |&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;   {
 |&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;   Debug.WriteLine(string.Format("Authentication failed!"));
 |&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;   return;
