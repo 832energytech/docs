@@ -236,7 +236,7 @@ ___
 |&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;   }
 |&nbsp; &nbsp; &nbsp; &nbsp;    }
 |&nbsp; &nbsp; }
-|&nbsp; &nbsp;  (string errorMessage, UserRegistrationResponseDto response) = await  _client1.RegisterNewUserAsync().ConfigureAwait(false);
+|&nbsp; &nbsp;  
 |}
             
 
@@ -269,10 +269,25 @@ ___
 |Database CRUD | 
 |GetAllLedgersAsync| Get list of all ledgers (tables) in EBBuild DB.
 |&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;var allLedgers = _client1.GetAllLedgersAsync().Result;
-|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;var ledgers = _client1.GetAllLedgersAsync(_client1.GetLedgerName()).Result;
-|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;if (ledgers.Item2.Count() == 0) 
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if (!string.IsNullOrEmpty(allLedgers.errorMessage))
 |&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;{
-|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;   var newLedger = _client1.CreateLedgerAsync(_client2.GetLedgerName()).Result;
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Debug.WriteLine(allLedgers.errorMessage);
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;return;
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;}
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;var ledgers = _client1.GetAllLedgersAsync(_client1.GetLedgerName()).Result;
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if (!string.IsNullOrEmpty(ledgers.errorMessage))
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;{
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Debug.WriteLine(allLedgers.errorMessage);
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;return;
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;}
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;if (ledgers.Item2?.Count() == 0) 
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;{
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;   var newLedger = _client1.CreateLedgerAsync(_client2.GetLedgerName()).Result;
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;  if(!string.IsNullOrEmpty(newLedger.errorMessage))
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;  {
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;  Debug.WriteLine(string.Format(newLedger.errorMessage));
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;  return;
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;  }
 |&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;}
 
 ## 
