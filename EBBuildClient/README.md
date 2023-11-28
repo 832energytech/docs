@@ -7,6 +7,7 @@ ___
 ## Features
 If your application requires cloud storage of unstructured JSON or key/value paired data, the EB Build client is an affordable and extremely fast alternative to any of the following solutions:
 
+- ✨ Supabase
 - ✨ AWS DynamoDB
 - ✨ Azure CosmoDB
 - ✨ Google Cloud Datastore 
@@ -344,15 +345,41 @@ ___
 ## 
 | Function | Description |
 | ------ | ------ |
-|UpdateDataToLedgerWithNoResponse|Update a block (record) to a ledger (Table) based on a schema (class).
-|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;EBBuildAPIService.UpdateDataToLedgerWithNoResponse<Recent_Searches_Flight_Shop_Child>(
-|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;shopChild, 
-|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;_ebBuildDBApiServiceFactory.GetAsyncWrapper(), 
-|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;_childQueryPatterns, 
-|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;_queryPatternsFunctions, 
-|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;_client1, 
-|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;childBlockName, 
-|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;childBlockHashKey);
+|UpdateDataToLedgerWithNoResponse|Create a vector object and add a search vector.
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /*/
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; * Create vector search string
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/*/
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Vector<Int32> vector = new Vector<Int32>();
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;vector.AddVector(new int[] { 8, 2, 3, 4, 5 });
+
+## 
+| Vector Database Classes | Description |
+| ------ | ------ |
+|Vector|Create a vector object and add a search vector.
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /*/
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; * Create vector search string
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/*/
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Vector<Int32> vector = new Vector<Int32>();
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;vector.AddVector(new int[] { 8, 2, 3, 4, 5 });
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;string vectorString = EBIBuildAPIHelper.ConvertVectorToString<Int32>(vector);
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;_filters = EBIBuildAPIHelper.BuildFilter(_filters, "Recent_Searches_FShop_LogData_Value", FilterOperation.VECTORMATCH, vectorString);
+## 
+| Vector Database Classes | Description |
+| ------ | ------ |
+|Embeddings|Create an embedding object to hold a matrix to be searched.
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /*/
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; * Create embeddings matrix string
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/*/
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Embeddings<Vector<Int32>, Int32> embedding = new Embeddings<Vector<Int32>, Int32>();
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;embedding.AddEmbedding(new[,]
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;{
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;{ new Vector<Int32>(new Int32[] { 1, 2, 3, 4, 5 }) },
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;{ new Vector<Int32>(new Int32[] { 5, 6, 3, 8, 7 }) },
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;{ new Vector<Int32>(new Int32[] { 3, 7, 3, 9, 1 }) }
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;});
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;string embeddingString = embedding.GetEmbeddingString();
+
 
 ## 
 | Function | Description |
@@ -445,6 +472,35 @@ It's that easy to implement DDoS!
               EnforceCacheResults: false,
               StringNameOfType: typeof(ClassTypeX).Name).Result;
 ```
+
+___
+
+## Vector Database - Documentation
+___
+BuildDB operates as fully functioning vector database with support for both vectors and embedded objects on top of our highly performant and scalable architecture.
+- ✨ Fi
+- ✨ If a firewall has to implement brute force attack detection, it has to read the whole payload and then inspect for patterns. This requires high CPU Á Memory usage on Firewall. In case of https, it requires you to terminate https at firewall level so that it can read the received data.
+- ✨ Most firewalls have basic scripting language to configure rules. Some do support JavaScript like language, but check the CPU cost of that and the price tag. With HackerSpray, you get .NET code, so the sky is the limit.
+- ✨ Firewalls have limited storage for logs and shipping logs from firewall to analysis engines puts stress on the firewall, especially when you are under attack. Many a times, we experience Firewall CPU exhaustion when it is blocking DOS, while it is writing all those attacks in a log and also shipping the logs to our analysis servers.
+
+The answer is more business level intelligent to analyze data before it is added to storage.
+The solution is BuildDB!
+Before storing data into BuildDB, simply invoke the following command "GetDDoSStatisticsAync" to instandly gather metrics on the frequency of records written using the same filterKey to allow or block adding additional records initiated by bad actors.
+It's that easy to implement DDoS!
+```
+ (List<ClassTypeX> DoSRecordList, paginationDetails) = EBBuildAPIService.GetDDoSStatisticsAsync<ClassTypeX>(
+              asyncWrapper: _ebBuildDBApiServiceFactory.GetAsyncWrapper(),
+              filterKey: "Id_Field", 
+              filterKeyValue: "cac5bf97-2acc-461c-b4dd-c962bd45f996",
+              DateTimeKey: "Time_Stamp_Field",
+              timeInterval: DoSTimeInterval.ELAPSEDMINUTES,
+              DDoSTimeIntervalValue: "1",
+              servicContext: _client1,
+              EnforceCacheResults: false,
+              StringNameOfType: typeof(ClassTypeX).Name).Result;
+```
+
+
 ___
 ## Regular Expression - Documentation
 | Character | What does it do? | 
