@@ -16,7 +16,7 @@ If your application requires cloud storage of unstructured JSON or key/value pai
 - ✨ MongoDB
 - ✨ RavenDB
 - ✨ Redis
-Couchbase
+- ✨ Couchbase
 
 ##
 ___
